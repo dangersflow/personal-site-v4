@@ -55,10 +55,12 @@ export default function Home() {
     return controls.stop;
   }, []);
 
-  const [firstNameArray, setFirstNameArray] = useState([]);
+  const emptyStringArray: string[] = [];
+
+  const [firstNameArray, setFirstNameArray] = useState(emptyStringArray);
   const [firstNameCounter, setFirstNameCounter] = useState(0);
 
-  const [lastNameArray, setLastNameArray] = useState([]);
+  const [lastNameArray, setLastNameArray] = useState(emptyStringArray);
   const [lastNameCounter, setLastNameCounter] = useState(0);
 
   const [firstNameDone, setFirstNameDone] = useState(false);
