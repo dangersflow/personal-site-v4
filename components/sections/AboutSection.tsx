@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import localFont from "next/font/local";
+import Image from "next/image";
 import { useContext, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import AppContext from "../../context/AppContext";
@@ -43,8 +44,7 @@ const AboutSection = (props: AboutSectionProps) => {
   return (
     <Section
       style={{
-        backgroundImage: `url(${props.image.src})`,
-        backgroundSize: "cover",
+        backgroundColor: "#292933",
         justifyContent: "flex-start",
         alignItems: "flex-start",
         gap: "2rem",
@@ -57,10 +57,19 @@ const AboutSection = (props: AboutSectionProps) => {
         damping: 100,
       }}
     >
+      <Image
+        src={props.image.src}
+        alt="background-image1"
+        objectFit="cover"
+        objectPosition="center"
+        quality={100}
+        fill
+      />
       <motion.div
         style={{
           display: "flex",
           paddingLeft: "3rem",
+          zIndex: 1,
         }}
         layout
         animate={inView && "visible"}

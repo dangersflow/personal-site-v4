@@ -1,4 +1,5 @@
 import localFont from "next/font/local";
+import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import AppContext from "../../context/AppContext";
@@ -36,10 +37,12 @@ export const HomeSection = (props: MainSectionProps) => {
 
   const [firstNameDone, setFirstNameDone] = useState(false);
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   useEffect(() => {
     if (firstNameCounter === props.firstName.length) {
       setFirstNameDone(true);
-    } else {
+    } else if (imageLoaded) {
       setTimeout(() => {
         setFirstNameArray((prev) => [
           ...prev,
@@ -51,7 +54,7 @@ export const HomeSection = (props: MainSectionProps) => {
       }, Math.floor(Math.random() * 100 + 50));
       console.log(firstNameArray);
     }
-  }, [firstNameCounter]);
+  }, [firstNameCounter, imageLoaded]);
 
   useEffect(() => {
     if (firstNameDone) {
@@ -82,12 +85,23 @@ export const HomeSection = (props: MainSectionProps) => {
     <Section
       style={{
         backgroundColor: "#292933",
-        backgroundImage: `url(${props.image.src})`,
-        backgroundSize: "cover",
+        // backgroundImage: `url(${props.image.src})`,
+        // backgroundSize: "cover",
       }}
       layout
       ref={ref}
     >
+      <Image
+        src={props.image.src}
+        alt="background-image1"
+        objectFit="cover"
+        objectPosition="center"
+        quality={100}
+        fill
+        onLoad={() => {
+          setImageLoaded(true);
+        }}
+      />
       <FirstNameContainer>
         {firstNameArray.map((letter, index) => (
           <Text

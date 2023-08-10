@@ -32,6 +32,7 @@ export const FirstNameContainer = styled(motion.div)`
   align-items: flex-end;
   padding-right: 20%;
   justify-content: flex-end;
+  z-index: 1;
 
   @media (max-width: 576px) {
     padding-right: 0%;
@@ -45,6 +46,7 @@ export const LastNameContainer = styled(motion.div)`
   align-items: flex-end;
   padding-left: 20%;
   justify-content: flex-end;
+  z-index: 1;
 
   @media (max-width: 576px) {
     padding-left: 3%;
