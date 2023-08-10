@@ -6,6 +6,8 @@ function AppContextReducer(state: any, action: { type: any; payload: any }) {
         ...state,
         currentPageIndex: action.payload.currentPageIndex,
       };
+    default:
+      return state;
   }
 }
 
