@@ -1,7 +1,13 @@
-import { motion } from "framer-motion";
 import localFont from "next/font/local";
-import { useEffect, useState } from "react";
-import { Section } from "./Primitives";
+import { useContext, useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import AppContext from "../../context/AppContext";
+import {
+  FirstNameContainer,
+  LastNameContainer,
+  Section,
+  Text,
+} from "./Primitives";
 
 // Font files can be colocated inside of `pages`
 const myFont = localFont({ src: "../../public/Canno.ttf" });
@@ -15,6 +21,12 @@ interface MainSectionProps {
 
 export const HomeSection = (props: MainSectionProps) => {
   const emptyStringArray: string[] = [];
+
+  const { dispatch } = useContext(AppContext);
+
+  const { ref, inView } = useInView({
+    threshold: 0.8,
+  });
 
   const [firstNameArray, setFirstNameArray] = useState(emptyStringArray);
   const [firstNameCounter, setFirstNameCounter] = useState(0);
@@ -36,7 +48,7 @@ export const HomeSection = (props: MainSectionProps) => {
         setFirstNameCounter((prev) =>
           prev < props.firstName.length ? prev + 1 : prev
         );
-      }, Math.floor(Math.random() * 200 + 100));
+      }, Math.floor(Math.random() * 100 + 50));
       console.log(firstNameArray);
     }
   }, [firstNameCounter]);
@@ -50,29 +62,35 @@ export const HomeSection = (props: MainSectionProps) => {
         setLastNameCounter((prev) =>
           prev < props.lastName.length ? prev + 1 : prev
         );
-      }, Math.floor(Math.random() * 200 + 100));
+      }, Math.floor(Math.random() * 100 + 50));
       console.log(lastNameArray);
     }
   }, [lastNameCounter, firstNameDone]);
+
+  useEffect(() => {
+    if (inView) {
+      dispatch({
+        type: "SET_CURRENT_PAGE_INDEX",
+        payload: {
+          currentPageIndex: 0,
+        },
+      });
+    }
+  }, [dispatch, inView]);
 
   return (
     <Section
       style={{
         backgroundColor: "#292933",
         backgroundImage: `url(${props.image.src})`,
+        backgroundSize: "cover",
       }}
       layout
+      ref={ref}
     >
-      <motion.div
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          paddingRight: "20%",
-          justifyContent: "flex-end",
-        }}
-      >
+      <FirstNameContainer>
         {firstNameArray.map((letter, index) => (
-          <motion.span
+          <Text
             layout
             key={index}
             className={myFont.className}
@@ -88,28 +106,22 @@ export const HomeSection = (props: MainSectionProps) => {
             }}
           >
             {letter}
-          </motion.span>
+          </Text>
         ))}
         {firstNameDone !== true && (
-          <motion.div
+          <Text
             key={"caret"}
             style={{ fontWeight: "100" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
             |
-          </motion.div>
+          </Text>
         )}
-      </motion.div>
-      <motion.div
-        style={{
-          display: "flex",
-          paddingLeft: "20%",
-          paddingRight: "1%",
-        }}
-      >
+      </FirstNameContainer>
+      <LastNameContainer>
         {lastNameArray.map((letter, index) => (
-          <motion.span
+          <Text
             layout
             key={index}
             className={myFont.className}
@@ -125,14 +137,14 @@ export const HomeSection = (props: MainSectionProps) => {
             }}
           >
             {letter}
-          </motion.span>
+          </Text>
         ))}
         {firstNameDone && (
-          <motion.div key={"caret"} style={{ fontWeight: "100" }}>
+          <Text key={"caret"} style={{ fontWeight: "100" }}>
             |
-          </motion.div>
+          </Text>
         )}
-      </motion.div>
+      </LastNameContainer>
     </Section>
   );
 };
