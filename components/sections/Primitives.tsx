@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const MainWrapper = styled(motion.main)`
   display: block;
@@ -57,6 +57,7 @@ export const LastNameContainer = styled(motion.div)`
 
 export const Text = styled(motion.span)`
   font-size: 10rem;
+  color: white;
 
   /* Styles for extra small devices (e.g., phones) */
   @media (max-width: 576px) {
@@ -84,7 +85,7 @@ export const Text = styled(motion.span)`
   }
 
   @media (min-width: 2160px) {
-    font-size: 14rem;
+    font-size: 10rem;
   }
 `;
 
@@ -121,46 +122,82 @@ export const SmallText = styled(motion.span)`
   }
 `;
 
+export const ExtraSmallText = styled(motion.span)`
+  font-size: 1rem;
+
+  /* Styles for extra small devices (e.g., phones) */
+  @media (max-width: 576px) {
+    font-size: 0.7rem;
+  }
+
+  /* Styles for small devices (e.g., landscape phones) */
+  @media (min-width: 577px) and (max-width: 768px) {
+    font-size: 0.7rem;
+  }
+
+  /* Styles for medium devices (e.g., tablets) */
+  @media (min-width: 769px) and (max-width: 992px) {
+    font-size: 0.7rem;
+  }
+
+  /* Styles for large devices (e.g., laptops) */
+  @media (min-width: 993px) and (max-width: 1200px) {
+    font-size: 1rem;
+  }
+
+  /* Styles for extra large devices (e.g., desktops) */
+  @media (min-width: 1201px) {
+    font-size: 1rem;
+  }
+
+  @media (min-width: 2160px) {
+    font-size: 2rem;
+  }
+`;
+
 export const TextContainer = styled(motion.div)`
   display: flex;
   border-radius: 1rem;
   flex-direction: column;
-  background-color: rgba(255, 255, 255, .15);  
+  background-color: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(5px);
   padding: 1.5rem;
   justify-content: flex-start;
   align-items: flex-start;
   text-align: start;
- 
+  max-width: 70rem;
 
   /* Styles for extra small devices (e.g., phones) */
   @media (max-width: 576px) {
-    height: 10rem
-    width: 5rem
+    height: auto;
+    width: 70%;
   }
 
   /* Styles for small devices (e.g., landscape phones) */
   @media (min-width: 577px) and (max-width: 768px) {
-    height: 10rem
+    height: auto;
+    width: 70%;
   }
 
   /* Styles for medium devices (e.g., tablets) */
   @media (min-width: 769px) and (max-width: 992px) {
-    height: 10rem
+    height: 10rem;
   }
 
   /* Styles for large devices (e.g., laptops) */
   @media (min-width: 993px) and (max-width: 1200px) {
-    height: 10rem
+    height: auto;
+    width: 70%;
   }
 
   /* Styles for extra large devices (e.g., desktops) */
   @media (min-width: 1201px) {
     height: auto;
-    width: 50rem;
+    width: 70%;
   }
 
   @media (min-width: 2160px) {
-    height: 20rem
+    height: auto;
+    width: 70%;
   }
 `;

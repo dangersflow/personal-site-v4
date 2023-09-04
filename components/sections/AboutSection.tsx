@@ -1,9 +1,9 @@
-import { motion } from "framer-motion";
-import localFont from "next/font/local";
+import AppContext from "../../context/AppContext";
 import Image from "next/image";
+import localFont from "next/font/local";
+import { motion } from "framer-motion";
 import { useContext, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import AppContext from "../../context/AppContext";
 import { Section, SmallText, Text, TextContainer } from "./Primitives";
 
 interface AboutSectionProps {
@@ -56,6 +56,7 @@ const AboutSection = (props: AboutSectionProps) => {
         stiffness: 500,
         damping: 100,
       }}
+      id="about"
     >
       <Image
         src={props.image.src}
@@ -90,8 +91,7 @@ const AboutSection = (props: AboutSectionProps) => {
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
-          paddingLeft: "3rem",
-          gap: "1rem",
+          gap: "1.5rem",
         }}
       >
         <TextContainer

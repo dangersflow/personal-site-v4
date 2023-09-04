@@ -1,8 +1,9 @@
-import { TargetAndTransition, Transition, motion } from "framer-motion";
+import AppContext from "../../context/AppContext";
 import localFont from "next/font/local";
+import { TargetAndTransition, Transition, motion } from "framer-motion";
 import { useContext } from "react";
 import { styled } from "styled-components";
-import AppContext from "../../context/AppContext";
+import { ExtraSmallText } from "./Primitives";
 
 const PageViewerContainer = styled(motion.div)`
   display: flex;
@@ -16,11 +17,12 @@ const PageViewerContainer = styled(motion.div)`
   gap: 1rem;
 `;
 
-const PageViewerItem = styled(motion.div)`
+const PageViewerItem = styled(motion.a)`
   display: flex;
   position: relative;
   flex-direction: column;
   font-size: 1rem;
+  cursor: pointer;
 `;
 
 const Underline = styled(motion.div)`
@@ -52,6 +54,11 @@ const PageViewer = (props: any) => {
     damping: 150,
   } as Transition;
 
+  const scrollToSection = (section: string) => {
+    const element = document.getElementById(section);
+    element!.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <PageViewerContainer>
       <PageViewerItem
@@ -60,8 +67,9 @@ const PageViewer = (props: any) => {
           state.currentPageIndex === 0 ? animatedTextState : defaultTextState
         }
         transition={defaultTransition}
+        onClick={() => scrollToSection("home")}
       >
-        home
+        <ExtraSmallText>home</ExtraSmallText>
         <Underline
           animate={{
             maxWidth: state.currentPageIndex === 0 ? "100%" : "0%",
@@ -75,8 +83,9 @@ const PageViewer = (props: any) => {
           state.currentPageIndex === 1 ? animatedTextState : defaultTextState
         }
         transition={defaultTransition}
+        onClick={() => scrollToSection("about")}
       >
-        about
+        <ExtraSmallText>about</ExtraSmallText>
         <Underline
           animate={{
             maxWidth: state.currentPageIndex === 1 ? "100%" : "0%",
@@ -90,8 +99,9 @@ const PageViewer = (props: any) => {
           state.currentPageIndex === 2 ? animatedTextState : defaultTextState
         }
         transition={defaultTransition}
+        onClick={() => scrollToSection("contact")}
       >
-        contact
+        <ExtraSmallText>contact</ExtraSmallText>
         <Underline
           animate={{
             maxWidth: state.currentPageIndex === 2 ? "100%" : "0%",
