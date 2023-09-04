@@ -1,8 +1,9 @@
-import localFont from "next/font/local";
+import AppContext from "../../context/AppContext";
 import Image from "next/image";
+import localFont from "next/font/local";
 import { useContext, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import AppContext from "../../context/AppContext";
+
 import {
   FirstNameContainer,
   LastNameContainer,
@@ -90,6 +91,7 @@ export const HomeSection = (props: MainSectionProps) => {
       }}
       layout
       ref={ref}
+      id="home"
     >
       <Image
         src={props.image.src}
