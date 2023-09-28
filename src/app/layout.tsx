@@ -1,11 +1,11 @@
 "use client";
-
-import { Inter } from "next/font/google";
-import { useReducer } from "react";
+import "./globals.css";
 import AppContext from "../../context/AppContext";
 import AppContextReducer from "../../reducers/AppContextReducer";
 import InitialAppState from "../../utils/InitialAppState";
-import "./globals.css";
+import { Inter } from "next/font/google";
+import { Suspense, useReducer } from "react";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,10 +17,12 @@ export default function RootLayout({
   const [state, dispatch] = useReducer(AppContextReducer, InitialAppState);
 
   return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </AppContext.Provider>
+    <ParallaxProvider>
+      <AppContext.Provider value={{ state, dispatch }}>
+        <html lang="en">
+          <body className={inter.className}>{children}</body>
+        </html>
+      </AppContext.Provider>
+    </ParallaxProvider>
   );
 }

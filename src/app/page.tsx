@@ -3,11 +3,13 @@ import AboutSection from "../../components/sections/AboutSection";
 import AppContext from "../../context/AppContext";
 import ContactSection from "../../components/sections/ContactSection";
 import PageViewer from "../../components/sections/PageViewer";
+import dynamic from "next/dynamic";
 import image from "../../public/blackcomp.webp";
 import image2 from "../../public/blackcomp2.webp";
 import localFont from "next/font/local";
 import { LayoutGroup } from "framer-motion";
-import { useContext } from "react";
+import { Suspense, lazy, useContext } from "react";
+import { ShapesBackground } from "../../components/ShapesBackground";
 import { HomeSection } from "../../components/sections/HomeSection";
 import { MainWrapper } from "../../components/sections/Primitives";
 
