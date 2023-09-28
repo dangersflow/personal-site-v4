@@ -1,7 +1,7 @@
 import AppContext from "../../context/AppContext";
 import Image from "next/image";
 import localFont from "next/font/local";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import {
@@ -23,9 +23,7 @@ interface MainSectionProps {
 
 export const HomeSection = (props: MainSectionProps) => {
   const emptyStringArray: string[] = [];
-
   const { dispatch } = useContext(AppContext);
-
   const { ref, inView } = useInView({
     threshold: 0.8,
   });
@@ -37,13 +35,17 @@ export const HomeSection = (props: MainSectionProps) => {
   const [lastNameCounter, setLastNameCounter] = useState(0);
 
   const [firstNameDone, setFirstNameDone] = useState(false);
-
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  useEffect(() => {
+  // This code handles the first name animation.
+  // It renders the first name letter by letter, and then renders the last name letter by letter after the first name is done rendering.
+  const handleFirstName = useCallback(() => {
+    // If the first name is done rendering, set the state to done.
     if (firstNameCounter === props.firstName.length) {
       setFirstNameDone(true);
-    } else if (imageLoaded) {
+    }
+    // If the image is loaded, render the next letter in the first name.
+    else if (imageLoaded) {
       setTimeout(() => {
         setFirstNameArray((prev) => [
           ...prev,
@@ -55,21 +57,35 @@ export const HomeSection = (props: MainSectionProps) => {
       }, Math.floor(Math.random() * 100 + 50));
       console.log(firstNameArray);
     }
-  }, [firstNameCounter, imageLoaded]);
+  }, [firstNameArray, firstNameCounter, imageLoaded, props.firstName]);
 
-  useEffect(() => {
+  const updateLastNameArray = useCallback(() => {
+    setLastNameArray((prev) => [...prev, props.lastName[lastNameCounter]]);
+    setLastNameCounter((prev) =>
+      prev < props.lastName.length ? prev + 1 : prev
+    );
+  }, [lastNameCounter, props.lastName]);
+
+  const updateLastName = useCallback(() => {
     if (firstNameDone) {
       setTimeout(() => {
         if (firstNameDone) {
         }
-        setLastNameArray((prev) => [...prev, props.lastName[lastNameCounter]]);
-        setLastNameCounter((prev) =>
-          prev < props.lastName.length ? prev + 1 : prev
-        );
+        updateLastNameArray();
       }, Math.floor(Math.random() * 100 + 50));
       console.log(lastNameArray);
     }
-  }, [lastNameCounter, firstNameDone]);
+  }, [firstNameDone, lastNameArray, updateLastNameArray]);
+
+  useEffect(() => {
+    handleFirstName();
+  }, [firstNameCounter, handleFirstName, imageLoaded]);
+
+  useEffect(() => {
+    if (firstNameDone) {
+      updateLastName();
+    }
+  }, [lastNameCounter, firstNameDone, updateLastName]);
 
   useEffect(() => {
     if (inView) {

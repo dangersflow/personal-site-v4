@@ -22,7 +22,7 @@ export const Section = styled(motion.section)`
   scroll-snap-align: start;
   scroll-snap-stop: always;
   height: 100dvh;
-  border-bottom: solid white 10px;
+  border-bottom: solid white 5px;
 
   background-color: #dfdbe5;
 `;

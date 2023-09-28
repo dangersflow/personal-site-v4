@@ -27,7 +27,7 @@ const PageViewerItem = styled(motion.a)`
 
 const Underline = styled(motion.div)`
   display: inline-block;
-  height: 0.5px;
+  height: 1px;
   background-color: white;
 `;
 
